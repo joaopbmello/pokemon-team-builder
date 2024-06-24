@@ -1,8 +1,8 @@
 import "./App.css";
-import PokemonCard from "./components/PokemonCard";
+import PokemonGrid from "./components/PokemonGrid";
 
 function App() {
-  return <PokemonCard />;
+  return <PokemonGrid />;
 }
 
 export default App;
