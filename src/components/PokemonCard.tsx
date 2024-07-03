@@ -45,7 +45,6 @@ function PokemonCard(props: PokemonCardProps) {
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-ix/scarlet-violet/${
               PokemonType[type as keyof typeof PokemonType]
             }.png`}
-            alt={type}
           />
         ))}
       </div>
