@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
-import PokemonCard from "./PokemonCard";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Pokemon } from "../types";
+import PokemonCard from "./PokemonCard";
 
-interface Pokemon {
-  id: number;
-  name: string;
-  types: string[];
+interface PokemonGridProps {
+  addToTeam: (pokemon: Pokemon) => void;
 }
 
-function PokemonGrid() {
+function PokemonGrid({ addToTeam }: PokemonGridProps) {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   useEffect(() => {
@@ -38,12 +37,7 @@ function PokemonGrid() {
   return (
     <div className="flex flex-wrap justify-center">
       {pokemons.map((pokemon) => (
-        <PokemonCard
-          key={pokemon.id}
-          id={pokemon.id}
-          name={pokemon.name}
-          types={pokemon.types}
-        />
+        <PokemonCard key={pokemon.id} pokemon={pokemon} addToTeam={addToTeam} />
       ))}
     </div>
   );

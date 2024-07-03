@@ -1,19 +1,42 @@
-function TeamSlot() {
+import { Pokemon } from "../types";
+
+interface TeamSlotProps {
+  pokemon: Pokemon | null;
+  removeFromTeam: (id: number) => void;
+}
+
+function TeamSlot({ pokemon, removeFromTeam }: TeamSlotProps) {
+  const isEmpty = pokemon === null;
+
+  const primaryTypeColor = isEmpty ? "slate-300" : pokemon.types[0];
+  const secondaryTypeColor = isEmpty
+    ? "slate-300"
+    : pokemon.types[1] || pokemon.types[0];
+
+  const cursorType = isEmpty ? "default" : "pointer";
+
   return (
-    <div className="w-52">
-      <img
-        className="absolute w-52"
-        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-      />
+    <div
+      className={`m-5 w-52 cursor-${cursorType}`}
+      onClick={() => !isEmpty && removeFromTeam(pokemon.id)}
+    >
+      {isEmpty ? (
+        ""
+      ) : (
+        <img
+          className="absolute w-52"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+        />
+      )}
       <svg
-        className="-mb-6 fill-grass"
+        className={`-mb-6 fill-${primaryTypeColor}`}
         viewBox="2 2 19.9 9"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M21.9 11c-.5-5.05-4.76-9-9.95-9C6.77 2 2.5 5.95 2 11h5.05a5 5 0 0 1 9.8 0h5.05z" />
       </svg>
       <svg
-        className="fill-poison"
+        className={`fill-${secondaryTypeColor}`}
         viewBox="2 9 19.9 13"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -33,6 +56,9 @@ function TeamSlot() {
           fill-rule="evenodd"
         />
       </svg>
+      <h1 className="text-center font-medium text-xl capitalize text-slate-900 mt-1">
+        {isEmpty ? "" : pokemon.name}
+      </h1>
     </div>
   );
 }
