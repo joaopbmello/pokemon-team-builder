@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import GameGrid from "./components/GameGrid";
 import NavBar from "./components/NavBar";
 import PokemonGrid from "./components/PokemonGrid";
 import TeamGrid from "./components/TeamGrid";
@@ -32,6 +33,7 @@ function App() {
   return (
     <>
       <NavBar />
+      <GameGrid />
       <TeamGrid team={team} removeFromTeam={removeFromTeam} />
       <PokemonGrid addToTeam={addToTeam} />
     </>

@@ -3,3 +3,11 @@ export interface Pokemon {
   name: string;
   types: string[];
 }
+
+export interface Game {
+  id: number;
+  name: string;
+  generation: string;
+  pokedexes: string[];
+  versions: string[];
+}
