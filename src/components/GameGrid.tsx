@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Game } from "../types";
 
 const isMainGame = (gameName: string) => {
@@ -21,6 +22,7 @@ const formatGameNames = (names: string[]) => {
 
 function GameGrid() {
   const [games, setGames] = useState<Game[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -62,7 +64,6 @@ function GameGrid() {
         name: formatGameNames(game.versions),
       }));
 
-      console.log(finalGames);
       setGames(finalGames);
     };
 
@@ -75,6 +76,7 @@ function GameGrid() {
         <div
           key={game.id}
           className="m-5 w-48 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+          onClick={() => navigate(`/team-builder/${game.id}`)}
         >
           <h1 className="text-center font-medium text-lg capitalize text-slate-900 m-1">
             {game.name}

@@ -4,35 +4,46 @@ import { Pokemon } from "../types";
 import PokemonCard from "./PokemonCard";
 
 interface PokemonGridProps {
+  pokedexes: string[];
   addToTeam: (pokemon: Pokemon) => void;
 }
 
-function PokemonGrid({ addToTeam }: PokemonGridProps) {
+function PokemonGrid({ pokedexes, addToTeam }: PokemonGridProps) {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const response = await axios.get(
-        "https://pokeapi.co/api/v2/pokemon?limit=151"
-      );
-      const pokemonsData = response.data.results;
+      const pokemonsData: Pokemon[] = [];
 
-      const pokemonsDetails = await Promise.all(
-        pokemonsData.map(async (pokemon: { name: string; url: string }) => {
-          const pokemonDetails = await axios.get(pokemon.url);
-          return {
-            id: pokemonDetails.data.id,
-            name: pokemonDetails.data.name,
-            types: pokemonDetails.data.types.map((type: any) => type.type.name),
-          };
-        })
-      );
+      for (const pokedex of pokedexes) {
+        const pokedexResponse = await axios.get(
+          `https://pokeapi.co/api/v2/pokedex/${pokedex}`
+        );
+        const entries = pokedexResponse.data.pokemon_entries;
 
-      setPokemons(pokemonsDetails);
+        const entryDetails = await Promise.all(
+          entries.map(async (entry: any) => {
+            const pokemonDetails = await axios.get(
+              entry.pokemon_species.url.replace("-species", "")
+            );
+            return {
+              id: pokemonDetails.data.id,
+              name: pokemonDetails.data.name,
+              types: pokemonDetails.data.types.map(
+                (type: any) => type.type.name
+              ),
+            };
+          })
+        );
+
+        pokemonsData.push(...entryDetails);
+      }
+
+      setPokemons(pokemonsData);
     };
 
     fetchPokemons();
-  }, []);
+  }, [pokedexes]);
 
   return (
     <div className="flex flex-wrap justify-center">
