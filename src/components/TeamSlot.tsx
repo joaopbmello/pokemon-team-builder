@@ -1,4 +1,7 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
+import Select from "react-select";
 import { Pokemon } from "../types";
 
 interface TeamSlotProps {
@@ -6,13 +9,49 @@ interface TeamSlotProps {
   removeFromTeam: (id: number) => void;
 }
 
+interface Move {
+  label: string;
+  value: string;
+}
+
 function TeamSlot({ pokemon, removeFromTeam }: TeamSlotProps) {
+  const [moves, setMoves] = useState<Move[]>([]);
+  const [selectedMoves, setSelectedMoves] = useState<Move[]>([]);
   const isEmpty = pokemon === null;
 
   const primaryTypeColor = isEmpty ? "slate-300" : pokemon.types[0];
   const secondaryTypeColor = isEmpty
     ? "slate-300"
     : pokemon.types[1] || pokemon.types[0];
+
+  useEffect(() => {
+    if (!pokemon) return;
+
+    const fetchMoves = async () => {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`
+      );
+      const movesData = response.data.moves
+        .map((move: any) => {
+          const moveName = move.move.name.replace(/-/g, " ");
+          return {
+            label: moveName.charAt(0).toUpperCase() + moveName.slice(1),
+            value: move.move.url,
+          };
+        })
+        .sort((a: Move, b: Move) => a.label.localeCompare(b.label));
+      setMoves(movesData);
+    };
+
+    fetchMoves();
+  }, [pokemon]);
+
+  const handleMoveChange = (selectedMove: Move | null, index: number) => {
+    if (!selectedMove) return;
+    const newSelectedMoves = [...selectedMoves];
+    newSelectedMoves[index] = selectedMove;
+    setSelectedMoves(newSelectedMoves);
+  };
 
   return (
     <div className="m-5 w-52">
@@ -58,9 +97,26 @@ function TeamSlot({ pokemon, removeFromTeam }: TeamSlotProps) {
           fill-rule="evenodd"
         />
       </svg>
-      <h1 className="text-center font-medium text-xl capitalize text-slate-900 mt-1">
-        {isEmpty ? "" : pokemon.name}
-      </h1>
+      {isEmpty ? (
+        ""
+      ) : (
+        <div>
+          <h1 className="text-center font-medium text-xl capitalize text-slate-900 mt-2">
+            {pokemon.name}
+          </h1>
+          {[...Array(4)].map((_, index) => (
+            <Select
+              key={index}
+              options={moves}
+              onChange={(selectedMove) =>
+                handleMoveChange(selectedMove as Move, index)
+              }
+              className="w-full p-1 mt-1"
+              placeholder="Move"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -27,6 +27,7 @@ export default {
   },
   plugins: [],
   safelist: [
+    "fill-slate-300",
     "fill-normal",
     "fill-fighting",
     "fill-flying",
@@ -45,6 +46,5 @@ export default {
     "fill-dragon",
     "fill-dark",
     "fill-fairy",
-    "fill-slate-300",
   ],
 };
