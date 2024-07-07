@@ -1,3 +1,4 @@
+import { TiDelete } from "react-icons/ti";
 import { Pokemon } from "../types";
 
 interface TeamSlotProps {
@@ -13,20 +14,21 @@ function TeamSlot({ pokemon, removeFromTeam }: TeamSlotProps) {
     ? "slate-300"
     : pokemon.types[1] || pokemon.types[0];
 
-  const cursorType = isEmpty ? "default" : "pointer";
-
   return (
-    <div
-      className={`m-5 w-52 cursor-${cursorType}`}
-      onClick={() => !isEmpty && removeFromTeam(pokemon.id)}
-    >
+    <div className="m-5 w-52">
       {isEmpty ? (
         ""
       ) : (
-        <img
-          className="absolute w-52"
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-        />
+        <div className="absolute">
+          <img
+            className="w-52"
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+          />
+          <TiDelete
+            className="absolute top-0 right-0 size-7 cursor-pointer fill-slate-400 hover:fill-slate-700"
+            onClick={() => !isEmpty && removeFromTeam(pokemon.id)}
+          />
+        </div>
       )}
       <svg
         className={`-mb-6 fill-${primaryTypeColor}`}
