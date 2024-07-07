@@ -4,13 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { Game } from "../types";
 
 const isMainGame = (gameName: string) => {
-  const dlcs = [
+  const notMainGame = [
+    "colosseum",
+    "xd",
     "the-crown-tundra",
     "the-isle-of-armor",
     "the-teal-mask",
     "the-indigo-disk",
   ];
-  return !dlcs.includes(gameName);
+  return !notMainGame.includes(gameName);
 };
 
 const formatGameNames = (names: string[]) => {
