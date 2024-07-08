@@ -19,9 +19,9 @@ function TeamSlot({ pokemon, removeFromTeam }: TeamSlotProps) {
   const [selectedMoves, setSelectedMoves] = useState<Move[]>([]);
   const isEmpty = pokemon === null;
 
-  const primaryTypeColor = isEmpty ? "slate-300" : pokemon.types[0];
+  const primaryTypeColor = isEmpty ? "slate" : pokemon.types[0];
   const secondaryTypeColor = isEmpty
-    ? "slate-300"
+    ? "slate"
     : pokemon.types[1] || pokemon.types[0];
 
   useEffect(() => {
@@ -70,14 +70,14 @@ function TeamSlot({ pokemon, removeFromTeam }: TeamSlotProps) {
         </div>
       )}
       <svg
-        className={`-mb-6 fill-${primaryTypeColor}`}
+        className={`-mb-6 fill-${primaryTypeColor}-300`}
         viewBox="2 2 19.9 9"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M21.9 11c-.5-5.05-4.76-9-9.95-9C6.77 2 2.5 5.95 2 11h5.05a5 5 0 0 1 9.8 0h5.05z" />
       </svg>
       <svg
-        className={`fill-${secondaryTypeColor}`}
+        className={`fill-${secondaryTypeColor}-300`}
         viewBox="2 9 19.9 13"
         xmlns="http://www.w3.org/2000/svg"
       >

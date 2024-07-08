@@ -66,6 +66,7 @@ function GameGrid() {
         name: formatGameNames(game.versions),
       }));
 
+      console.log(finalGames);
       setGames(finalGames);
     };
 
@@ -77,10 +78,13 @@ function GameGrid() {
       {games.map((game) => (
         <div
           key={game.id}
-          className="m-5 w-48 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+          className="m-5 w-80 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
           onClick={() => navigate(`/team-builder/${game.id}`)}
         >
-          <h1 className="text-center font-medium text-lg capitalize text-slate-900 m-1">
+          <div className="flex justify-center">
+            <img src={`/assets/${game.name}.png`} className="max-h-64 p-2" />
+          </div>
+          <h1 className="text-center font-medium text-lg capitalize text-slate-900 mb-2">
             {game.name}
           </h1>
         </div>
