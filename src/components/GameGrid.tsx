@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Game } from "../types";
+import NavBar from "./NavBar";
 
 const isMainGame = (gameName: string) => {
   const notMainGame = [
@@ -74,22 +75,26 @@ function GameGrid() {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center items-center">
-      {games.map((game) => (
-        <div
-          key={game.id}
-          className="m-5 w-80 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
-          onClick={() => navigate(`/team-builder/${game.id}`)}
-        >
-          <div className="flex justify-center">
-            <img src={`/assets/${game.name}.png`} className="max-h-64 p-2" />
+    <>
+      <NavBar />
+      <h1 className="px-10 pt-3 text-3xl font-medium">Select a game:</h1>
+      <div className="flex flex-wrap justify-center items-center">
+        {games.map((game) => (
+          <div
+            key={game.id}
+            className="m-5 w-80 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+            onClick={() => navigate(`/team-builder/${game.id}`)}
+          >
+            <div className="flex justify-center">
+              <img src={`/assets/${game.name}.png`} className="max-h-28 p-2" />
+            </div>
+            <h1 className="text-center font-medium text-lg capitalize text-slate-900 mb-2">
+              {game.name}
+            </h1>
           </div>
-          <h1 className="text-center font-medium text-lg capitalize text-slate-900 mb-2">
-            {game.name}
-          </h1>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
 

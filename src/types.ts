@@ -11,3 +11,8 @@ export interface Game {
   pokedexes: string[];
   versions: string[];
 }
+
+export interface Team {
+  name: string;
+  members: (Pokemon | null)[];
+}

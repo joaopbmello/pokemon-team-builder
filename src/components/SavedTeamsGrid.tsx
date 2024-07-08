@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
-import { Pokemon } from "../types";
+import { Link } from "react-router-dom";
+import { Team } from "../types";
 import NavBar from "./NavBar";
 import TeamCard from "./TeamCard";
-
-interface Team {
-  name: string;
-  members: (Pokemon | null)[];
-}
 
 function SavedTeamsGrid() {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -24,7 +20,9 @@ function SavedTeamsGrid() {
         {teams.map((team, index) => (
           <TeamCard key={index} team={team} />
         ))}
-        <IoIosAddCircle className="fill-slate-700 size-24 cursor-pointer" />
+        <Link to="/team-builder">
+          <IoIosAddCircle className="absolute bottom-0 right-0 m-10 fill-slate-700 size-24 cursor-pointer" />
+        </Link>
       </div>
     </>
   );
