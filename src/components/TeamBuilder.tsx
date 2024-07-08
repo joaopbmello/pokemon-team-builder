@@ -17,6 +17,7 @@ const TeamBuilder = () => {
     null,
     null,
   ]);
+  const [teamName, setTeamName] = useState("");
   const [pokedexes, setPokedexes] = useState<string[]>([]);
 
   useEffect(() => {
@@ -46,6 +47,12 @@ const TeamBuilder = () => {
     setTeam(newTeam);
   };
 
+  const saveTeam = () => {
+    const savedTeams = JSON.parse(localStorage.getItem("teams") || "[]");
+    const newTeam = { name: teamName, members: team };
+    localStorage.setItem("teams", JSON.stringify([...savedTeams, newTeam]));
+  };
+
   return (
     <>
       <NavBar />
@@ -53,10 +60,15 @@ const TeamBuilder = () => {
         <input
           type="text"
           maxLength={30}
+          value={teamName}
+          onChange={(e) => setTeamName(e.target.value)}
           placeholder="Team name"
           className="px-10 pt-7 w-full text-5xl font-semibold outline-none text-wrap"
         />
-        <FaCheckCircle className="fill-green-500 size-12 cursor-pointer" />
+        <FaCheckCircle
+          className="fill-green-500 size-12 cursor-pointer"
+          onClick={saveTeam}
+        />
       </div>
       <TeamGrid team={team} removeFromTeam={removeFromTeam} />
       <PokemonGrid pokedexes={pokedexes} addToTeam={addToTeam} />
