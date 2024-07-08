@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaCheckCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { Pokemon } from "../types";
 import NavBar from "./NavBar";
@@ -48,6 +49,15 @@ const TeamBuilder = () => {
   return (
     <>
       <NavBar />
+      <div className="flex justify-end items-end mx-10">
+        <input
+          type="text"
+          maxLength={30}
+          placeholder="Team name"
+          className="px-10 pt-7 w-full text-5xl font-semibold outline-none text-wrap"
+        />
+        <FaCheckCircle className="fill-green-500 size-12 cursor-pointer" />
+      </div>
       <TeamGrid team={team} removeFromTeam={removeFromTeam} />
       <PokemonGrid pokedexes={pokedexes} addToTeam={addToTeam} />
     </>

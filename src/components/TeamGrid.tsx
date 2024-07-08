@@ -8,7 +8,7 @@ interface TeamGridProps {
 
 function TeamGrid({ team, removeFromTeam }: TeamGridProps) {
   return (
-    <div className="mt-7 flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center">
       {team.map((pokemon, index) => (
         <TeamSlot
           key={index}
