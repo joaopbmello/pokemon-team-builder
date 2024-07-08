@@ -2,11 +2,15 @@ import { Team } from "../types";
 
 interface TeamCardProps {
   team: Team;
+  onClick: () => void;
 }
 
-function TeamCard({ team }: TeamCardProps) {
+function TeamCard({ team, onClick }: TeamCardProps) {
   return (
-    <div className="max-w-[32rem] m-5 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer">
+    <div
+      className="max-w-[32rem] m-5 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+      onClick={onClick}
+    >
       <h1 className="mt-2 text-center font-medium text-2xl text-slate-900">
         {team.name}
       </h1>

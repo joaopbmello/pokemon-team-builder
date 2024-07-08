@@ -15,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/saved-teams" element={<SavedTeamsGrid />} />
         <Route path="/team-builder" element={<GameGrid />} />
         <Route path="/team-builder/:gameId" element={<TeamBuilder />} />
+        <Route path="/team-builder/:gameId/:teamId" element={<TeamBuilder />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

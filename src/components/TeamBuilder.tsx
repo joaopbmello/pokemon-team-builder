@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import { Move, Pokemon } from "../types";
+import { Move, Pokemon, Team } from "../types";
 import NavBar from "./NavBar";
 import PokemonGrid from "./PokemonGrid";
 import TeamGrid from "./TeamGrid";
 
 const TeamBuilder = () => {
-  const { gameId } = useParams();
+  const { gameId, teamId } = useParams();
   const [team, setTeam] = useState<(Pokemon | null)[]>([
     null,
     null,
@@ -33,6 +33,18 @@ const TeamBuilder = () => {
     fetchGameDetails();
   }, [gameId]);
 
+  useEffect(() => {
+    if (teamId) {
+      const savedTeams = JSON.parse(localStorage.getItem("teams") || "[]");
+      const teamToEdit = savedTeams.find((t: Team) => t.id === teamId);
+      if (teamToEdit) {
+        setTeam(teamToEdit.members);
+        setTeamName(teamToEdit.name);
+        setPokedexes(teamToEdit.pokedexes);
+      }
+    }
+  }, [teamId]);
+
   const addToTeam = (pokemon: Pokemon) => {
     const emptySlotIndex = team.findIndex((slot) => slot === null);
     if (emptySlotIndex !== -1) {
@@ -49,8 +61,21 @@ const TeamBuilder = () => {
 
   const saveTeam = () => {
     const savedTeams = JSON.parse(localStorage.getItem("teams") || "[]");
-    const newTeam = { name: teamName, members: team };
-    localStorage.setItem("teams", JSON.stringify([...savedTeams, newTeam]));
+    const newTeam = {
+      id: teamId || Date.now().toString(),
+      name: teamName,
+      members: team,
+      gameId,
+      pokedexes,
+    };
+    if (teamId) {
+      const updatedTeams = savedTeams.map((t: Team) =>
+        t.id === teamId ? newTeam : t
+      );
+      localStorage.setItem("teams", JSON.stringify(updatedTeams));
+    } else {
+      localStorage.setItem("teams", JSON.stringify([...savedTeams, newTeam]));
+    }
     alert("Team saved successfully!");
   };
 
