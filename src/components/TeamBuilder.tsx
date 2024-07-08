@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import { Pokemon } from "../types";
+import { Move, Pokemon } from "../types";
 import NavBar from "./NavBar";
 import PokemonGrid from "./PokemonGrid";
 import TeamGrid from "./TeamGrid";
@@ -37,7 +37,7 @@ const TeamBuilder = () => {
     const emptySlotIndex = team.findIndex((slot) => slot === null);
     if (emptySlotIndex !== -1) {
       const newTeam = [...team];
-      newTeam[emptySlotIndex] = pokemon;
+      newTeam[emptySlotIndex] = { ...pokemon, moves: [] };
       setTeam(newTeam);
     }
   };
@@ -53,6 +53,14 @@ const TeamBuilder = () => {
     localStorage.setItem("teams", JSON.stringify([...savedTeams, newTeam]));
   };
 
+  const updateMoves = (index: number, moves: Move[]) => {
+    const newTeam = [...team];
+    if (newTeam[index]) {
+      newTeam[index] = { ...newTeam[index]!, moves };
+      setTeam(newTeam);
+    }
+  };
+
   return (
     <>
       <NavBar />
@@ -63,14 +71,18 @@ const TeamBuilder = () => {
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
           placeholder="Team name"
-          className="px-10 pt-7 w-full text-5xl font-semibold outline-none text-wrap"
+          className="pt-7 w-full text-5xl font-semibold outline-none text-wrap"
         />
         <FaCheckCircle
           className="fill-green-500 size-12 cursor-pointer"
           onClick={saveTeam}
         />
       </div>
-      <TeamGrid team={team} removeFromTeam={removeFromTeam} />
+      <TeamGrid
+        team={team}
+        removeFromTeam={removeFromTeam}
+        updateMoves={updateMoves}
+      />
       <PokemonGrid pokedexes={pokedexes} addToTeam={addToTeam} />
     </>
   );

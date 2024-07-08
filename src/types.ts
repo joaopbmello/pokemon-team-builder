@@ -1,7 +1,13 @@
+export interface Move {
+  label: string;
+  value: string;
+}
+
 export interface Pokemon {
   id: number;
   name: string;
   types: string[];
+  moves: Move[];
 }
 
 export interface Game {
