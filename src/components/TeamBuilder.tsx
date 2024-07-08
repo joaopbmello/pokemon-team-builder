@@ -51,6 +51,7 @@ const TeamBuilder = () => {
     const savedTeams = JSON.parse(localStorage.getItem("teams") || "[]");
     const newTeam = { name: teamName, members: team };
     localStorage.setItem("teams", JSON.stringify([...savedTeams, newTeam]));
+    alert("Team saved successfully!");
   };
 
   const updateMoves = (index: number, moves: Move[]) => {
