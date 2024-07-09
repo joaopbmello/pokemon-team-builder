@@ -84,23 +84,23 @@ function PokemonGrid({ pokedexes, addToTeam }: PokemonGridProps) {
 
       for (const pokedex of pokedexes) {
         const pokedexResponse = await axios.get(
-          `https://pokeapi.co/api/v2/pokedex/${pokedex}`
+          `https://pokeapi.co/api/v2/pokedex/${pokedex}`,
         );
         const entries = pokedexResponse.data.pokemon_entries;
 
         const entryDetails = await Promise.all(
           entries.map(async (entry: any) => {
             const pokemonDetails = await axios.get(
-              entry.pokemon_species.url.replace("-species", "")
+              entry.pokemon_species.url.replace("-species", ""),
             );
             return {
               id: pokemonDetails.data.id,
               name: pokemonDetails.data.name,
               types: pokemonDetails.data.types.map(
-                (type: any) => type.type.name
+                (type: any) => type.type.name,
               ),
             };
-          })
+          }),
         );
 
         pokemonsData.push(...entryDetails);
@@ -124,19 +124,19 @@ function PokemonGrid({ pokedexes, addToTeam }: PokemonGridProps) {
 
   const handleTypeChange = (selectedOptions: any) => {
     setSelectedTypes(
-      selectedOptions ? selectedOptions.map((option: any) => option.value) : []
+      selectedOptions ? selectedOptions.map((option: any) => option.value) : [],
     );
   };
 
   return (
     <>
-      <div className="flex justify-center mx-10">
+      <div className="mx-10 flex justify-center">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search Pokémon"
-          className="p-2 border rounded-md w-2/3 mr-2 outline-blue-500 h-10"
+          className="mr-2 h-10 w-2/3 rounded-md border border-neutral-300 p-2 outline-blue-500"
         />
         <Select
           isMulti

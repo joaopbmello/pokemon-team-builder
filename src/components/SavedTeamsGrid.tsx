@@ -21,7 +21,7 @@ function SavedTeamsGrid() {
   return (
     <>
       <NavBar />
-      <div className="flex flex-wrap justify-center items-center">
+      <div className="flex flex-wrap items-center justify-center">
         {teams.map((team, index) => (
           <TeamCard
             key={index}
@@ -30,7 +30,7 @@ function SavedTeamsGrid() {
           />
         ))}
         <Link to="/team-builder">
-          <IoIosAddCircle className="absolute bottom-0 right-0 m-10 fill-slate-700 size-24 cursor-pointer" />
+          <IoIosAddCircle className="absolute bottom-0 right-0 m-10 size-24 cursor-pointer fill-slate-700" />
         </Link>
       </div>
     </>

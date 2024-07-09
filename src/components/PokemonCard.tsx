@@ -29,19 +29,19 @@ interface PokemonCardProps {
 function PokemonCard({ pokemon, addToTeam }: PokemonCardProps) {
   return (
     <div
-      className="m-5 w-48 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+      className="m-5 w-48 cursor-pointer rounded-xl border-2 border-gray-300 bg-gray-100"
       onClick={() => addToTeam(pokemon)}
     >
-      <div className="flex justify-center mt-2">
+      <div className="mt-2 flex justify-center">
         <img
           className="size-32"
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
         />
       </div>
-      <h1 className="text-center font-medium text-lg capitalize text-slate-900 mt-1">
+      <h1 className="mt-1 text-center text-lg font-medium capitalize text-slate-900">
         {pokemon.name}
       </h1>
-      <div className="flex mx-1 mb-2 justify-center">
+      <div className="mx-1 mb-2 flex justify-center">
         {pokemon.types.map((type) => (
           <img
             key={type}

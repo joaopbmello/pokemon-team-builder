@@ -25,7 +25,7 @@ function TeamSlot({ pokemon, removeFromTeam, updateMoves }: TeamSlotProps) {
 
     const fetchMoves = async () => {
       const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`
+        `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`,
       );
       const movesData = response.data.moves
         .map((move: any) => {
@@ -65,7 +65,7 @@ function TeamSlot({ pokemon, removeFromTeam, updateMoves }: TeamSlotProps) {
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
           />
           <TiDelete
-            className="absolute top-0 right-0 size-7 cursor-pointer fill-slate-400 hover:fill-slate-700"
+            className="absolute right-0 top-0 size-7 cursor-pointer fill-slate-400 hover:fill-slate-700"
             onClick={() => !isEmpty && removeFromTeam(pokemon.id)}
           />
         </div>
@@ -97,7 +97,7 @@ function TeamSlot({ pokemon, removeFromTeam, updateMoves }: TeamSlotProps) {
       {isEmpty ? (
         ""
       ) : (
-        <div className="mt-4 static">
+        <div className="static mt-4">
           {[0, 1, 2, 3].map((index) => (
             <div key={index} className="mt-2">
               <Select

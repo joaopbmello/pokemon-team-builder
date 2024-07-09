@@ -30,7 +30,7 @@ function GameGrid() {
   useEffect(() => {
     const fetchGames = async () => {
       const response = await axios.get(
-        "https://pokeapi.co/api/v2/version-group?limit=27"
+        "https://pokeapi.co/api/v2/version-group?limit=27",
       );
       const gamesData = response.data.results;
 
@@ -41,14 +41,14 @@ function GameGrid() {
             id: gameDetails.data.id,
             name: gameDetails.data.name,
             pokedexes: gameDetails.data.pokedexes.map(
-              (pokedex: any) => pokedex.name
+              (pokedex: any) => pokedex.name,
             ),
             versions: gameDetails.data.versions.map(
-              (version: any) => version.name
+              (version: any) => version.name,
             ),
             generation: gameDetails.data.generation.name,
           };
-        })
+        }),
       );
 
       const groupedGames = gamesDetails
@@ -78,17 +78,17 @@ function GameGrid() {
     <>
       <NavBar />
       <h1 className="px-10 pt-3 text-3xl font-medium">Select a game:</h1>
-      <div className="flex flex-wrap justify-center items-center">
+      <div className="flex flex-wrap items-center justify-center">
         {games.map((game) => (
           <div
             key={game.id}
-            className="m-5 w-80 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+            className="m-5 w-80 cursor-pointer rounded-xl border-2 border-gray-300 bg-gray-100"
             onClick={() => navigate(`/team-builder/${game.id}`)}
           >
             <div className="flex justify-center">
               <img src={`/assets/${game.name}.png`} className="max-h-28 p-2" />
             </div>
-            <h1 className="text-center font-medium text-lg capitalize text-slate-900 mb-2">
+            <h1 className="mb-2 text-center text-lg font-medium capitalize text-slate-900">
               {game.name}
             </h1>
           </div>

@@ -8,10 +8,10 @@ interface TeamCardProps {
 function TeamCard({ team, onClick }: TeamCardProps) {
   return (
     <div
-      className="max-w-[32rem] m-5 rounded-xl border-2 border-gray-300 bg-gray-100 cursor-pointer"
+      className="m-5 max-w-[32rem] cursor-pointer rounded-xl border-2 border-gray-300 bg-gray-100"
       onClick={onClick}
     >
-      <h1 className="mt-2 text-center font-medium text-2xl text-slate-900">
+      <h1 className="mt-2 text-center text-2xl font-medium text-slate-900">
         {team.name}
       </h1>
       <div className="flex flex-wrap justify-center">
@@ -22,7 +22,7 @@ function TeamCard({ team, onClick }: TeamCardProps) {
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${member.id}.png`}
               className="h-32 p-2"
             />
-          ) : null
+          ) : null,
         )}
       </div>
     </div>

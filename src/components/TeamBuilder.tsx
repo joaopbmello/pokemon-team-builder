@@ -23,10 +23,10 @@ const TeamBuilder = () => {
   useEffect(() => {
     const fetchGameDetails = async () => {
       const gameResponse = await axios.get(
-        `https://pokeapi.co/api/v2/version-group/${gameId}`
+        `https://pokeapi.co/api/v2/version-group/${gameId}`,
       );
       setPokedexes(
-        gameResponse.data.pokedexes.map((pokedex: any) => pokedex.name)
+        gameResponse.data.pokedexes.map((pokedex: any) => pokedex.name),
       );
     };
 
@@ -70,7 +70,7 @@ const TeamBuilder = () => {
     };
     if (teamId) {
       const updatedTeams = savedTeams.map((t: Team) =>
-        t.id === teamId ? newTeam : t
+        t.id === teamId ? newTeam : t,
       );
       localStorage.setItem("teams", JSON.stringify(updatedTeams));
     } else {
@@ -90,17 +90,17 @@ const TeamBuilder = () => {
   return (
     <>
       <NavBar />
-      <div className="flex justify-end items-end mx-10">
+      <div className="mx-10 flex items-end justify-end">
         <input
           type="text"
           maxLength={30}
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
           placeholder="Team name"
-          className="pt-7 w-full text-5xl font-semibold outline-none text-wrap"
+          className="w-full text-wrap pt-7 text-5xl font-semibold outline-none"
         />
         <FaCheckCircle
-          className="fill-green-500 size-12 cursor-pointer"
+          className="size-12 cursor-pointer fill-green-500"
           onClick={saveTeam}
         />
       </div>
