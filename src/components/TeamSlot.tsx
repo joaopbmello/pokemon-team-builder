@@ -15,10 +15,10 @@ function TeamSlot({ pokemon, removeFromTeam, updateMoves }: TeamSlotProps) {
   const [selectedMoves, setSelectedMoves] = useState<Move[]>([]);
   const isEmpty = pokemon === null;
 
-  const primaryTypeColor = isEmpty ? "slate" : pokemon.types[0];
+  const primaryTypeColor = isEmpty ? "slate" : pokemon!.types[0];
   const secondaryTypeColor = isEmpty
     ? "slate"
-    : pokemon.types[1] || pokemon.types[0];
+    : pokemon!.types[1] || pokemon!.types[0];
 
   useEffect(() => {
     if (!pokemon) return;
@@ -40,6 +40,10 @@ function TeamSlot({ pokemon, removeFromTeam, updateMoves }: TeamSlotProps) {
     };
 
     fetchMoves();
+
+    if (pokemon.moves) {
+      setSelectedMoves(pokemon.moves);
+    }
   }, [pokemon]);
 
   const handleMoveChange = (selectedMove: Move | null, index: number) => {
