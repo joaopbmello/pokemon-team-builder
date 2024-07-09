@@ -10,6 +10,7 @@ interface PokemonGridProps {
 
 function PokemonGrid({ pokedexes, addToTeam }: PokemonGridProps) {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -45,12 +46,31 @@ function PokemonGrid({ pokedexes, addToTeam }: PokemonGridProps) {
     fetchPokemons();
   }, [pokedexes]);
 
+  const filteredPokemons = pokemons.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="flex flex-wrap justify-center">
-      {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} addToTeam={addToTeam} />
-      ))}
-    </div>
+    <>
+      <div className="flex justify-center">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search Pokémon"
+          className="p-2 border rounded-md w-1/2"
+        />
+      </div>
+      <div className="flex flex-wrap justify-center">
+        {filteredPokemons.map((pokemon) => (
+          <PokemonCard
+            key={pokemon.id}
+            pokemon={pokemon}
+            addToTeam={addToTeam}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
