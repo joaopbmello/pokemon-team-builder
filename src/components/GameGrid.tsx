@@ -67,7 +67,6 @@ function GameGrid() {
         name: formatGameNames(game.versions),
       }));
 
-      console.log(finalGames);
       setGames(finalGames);
     };
 
