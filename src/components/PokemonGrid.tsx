@@ -136,7 +136,7 @@ function PokemonGrid({ pokedexes, addToTeam }: PokemonGridProps) {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search Pokémon"
-          className="p-2 border rounded-md w-2/3 mr-2 outline-blue-500"
+          className="p-2 border rounded-md w-2/3 mr-2 outline-blue-500 h-10"
         />
         <Select
           isMulti
